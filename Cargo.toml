@@ -17,4 +17,4 @@ categories = ["data-structures"]
 
 
 [dev-dependencies]
-rand = "*"
+rand = "0.7.3"
