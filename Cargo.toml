@@ -1,0 +1,20 @@
+[package]
+name = "persistent-list"
+version = "0.1.0"
+authors = ["Axel Boldt-Christmas <xmas1915@gmail.com>"]
+edition = "2018"
+description = "A singly-linked persistent thread safe list."
+readme = "README.md"
+repository = "https://github.com/xmas92/persistent-list/"
+license = "MIT OR Apache-2.0"
+keywords = ["list", "persistent", "immutable"]
+categories = ["data-structures"]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[badges]
+
+[dependencies]
+
+
+[dev-dependencies]
+rand = "*"
