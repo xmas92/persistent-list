@@ -1,6 +1,6 @@
 [package]
 name = "persistent-list"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Axel Boldt-Christmas <xmas1915@gmail.com>"]
 edition = "2018"
 description = "A singly-linked persistent thread safe list."

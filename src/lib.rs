@@ -221,7 +221,7 @@ impl<E: Clone> Default for List<E> {
 /// ```
 #[inline]
 pub fn cons<E: Clone, T: Borrow<List<E>>>(first: E, rest: T) -> List<E> {
-    let mut list: List<E> = rest.borrow().clone().into();
+    let mut list: List<E> = rest.borrow().clone();
     // List {
     //     size: list.size + 1,
     //     node: Some(Arc::new(Node(first, list.node))),
@@ -367,10 +367,7 @@ impl<E: Clone> List<E> {
     /// ```
     #[inline]
     pub fn is_empty(&self) -> bool {
-        match &self.node {
-            Some(_) => false,
-            None => true,
-        }
+        self.node.is_none()
     }
 
     /// Returns the length of the `List`.
@@ -742,7 +739,7 @@ impl<E: Clone> List<E> {
         // node == head of old list
         // and self.node == None
         let mut node = self.node.take();
-        while let Some(_) = node {
+        while node.is_some() {
             // current head of the old list tail was not the end
             // swap head of the old list tail with the head of our new list
             mem::swap(&mut new.node, &mut node);
@@ -1043,10 +1040,6 @@ impl<E: PartialEq + Clone> PartialEq for List<E> {
     fn eq(&self, other: &Self) -> bool {
         self.len() == other.len() && self.iter().eq(other)
     }
-
-    fn ne(&self, other: &Self) -> bool {
-        self.len() != other.len() || self.iter().ne(other)
-    }
 }
 
 impl<T: Eq + Clone> Eq for List<T> {}
@@ -1075,9 +1068,7 @@ mod tests {
 
         let list1 = list![1, 2, 3, 4];
         let list2: List<_> = list1
-            .iter()
-            // Explicit Deref instead of cloned()
-            .map(|i| *i)
+            .iter().copied()
             .collect();
         assert_eq!(list![4, 3, 2, 1], list2);
 
@@ -1182,7 +1173,7 @@ mod tests {
         use std::collections::VecDeque;
         use std::thread;
         let size = 10000;
-        let list = List::from_iter(0..size);
+        let list: List<u32> = (0..size).collect();
         let vec: VecDeque<_> = list.iter().cloned().collect();
 
         let mut threads = Vec::new();
@@ -1249,7 +1240,7 @@ mod tests {
         use crate::rand::RngCore;
         use std::collections::VecDeque;
         let size = 10000;
-        let list = List::from_iter(0..size);
+        let list: List<u32> = (0..size).collect();
         let vec: VecDeque<_> = list.iter().cloned().collect();
 
         let mut rng = rand::thread_rng();
