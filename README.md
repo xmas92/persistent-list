@@ -52,7 +52,7 @@ assert_eq!(list2, list![4,6,8]);   // modified
 [b-tree]: https://en.wikipedia.org/wiki/B-tree
 
 
-Current version: 0.1.0
+Current version: 0.1.1
 
 ## TODO
 
